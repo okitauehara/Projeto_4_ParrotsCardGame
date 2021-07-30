@@ -1,7 +1,7 @@
 function selecionarQuantidade() {
     let quantidade = Number(prompt("Com quantas cartas você quer jogar? Escolha um valor entre 4 e 14"));
     let cartas = document.querySelector(".cartas");
-    let carta = 0;
+    let cartaAdicional = 0;
     let i = 0;
     let lista = [];
     let cartasJogaveis = [];
@@ -11,15 +11,14 @@ function selecionarQuantidade() {
     }
 
     while (cartasJogaveis.length !== quantidade) {
-        cartasJogaveis.push(carta, carta);
-        carta++;
+        cartasJogaveis.push(cartaAdicional, cartaAdicional);
+        cartaAdicional++;
     }
 
     let cartasEmbaralhadas = cartasJogaveis.sort(comparador);
-    console.log(cartasEmbaralhadas);
 
     while (i < cartasEmbaralhadas.length) {
-        lista += `<div class="carta">
+        lista += `<div class="carta" onclick="virarCarta(this);">
                             <div class="face verso">
                                 <img src="img/front.png">
                             </div>
@@ -31,12 +30,16 @@ function selecionarQuantidade() {
     }
 
     cartas.innerHTML = lista;
-    console.log(lista);
-
 }
 
 selecionarQuantidade();
 
 function comparador() { 
 	return Math.random() - 0.5; 
+}
+
+function virarCarta(elemento) {
+    let faces = elemento.getElementsByClassName("face");
+    faces[0].classList.toggle("virado");
+    faces[1].classList.toggle("virado");
 }

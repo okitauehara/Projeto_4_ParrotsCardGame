@@ -43,18 +43,19 @@ h1 {
     backface-visibility: hidden;
     transition: all .5s;
     transform-style: preserve-3d;
+    perspective: 1000px;
 }
 
 .frente {
+    transform: rotateY(-180deg);
+}
+
+.verso.virado {
     transform: rotateY(180deg);
 }
 
-.carta:active .frente {
+.frente.virado {
     transform: rotateY(0deg);
-}
-
-.carta:active .verso {
-    transform: rotateY(-180deg);
 }
 
 img {
