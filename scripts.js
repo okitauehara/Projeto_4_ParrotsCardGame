@@ -3,9 +3,6 @@ let quantidade;
 let faces;
 let acertouPar = 0;
 let jogadas = 0;
-let card = document.getElementsByClassName("carta");
-let cartas = [...card];
-let cartasAbertas = [];
 
 // Função para início do jogo //
 function selecionarQuantidade() {
@@ -106,6 +103,10 @@ function fimJogo() {
 }
 
 // Adicionar eventos para o clique na carta //
+let card = document.getElementsByClassName("carta");
+let cartas = [...card];
+let cartasAbertas = [];
+
 cartas.forEach(card => card.addEventListener("click", mostrarCarta));
 cartas.forEach(card => card.addEventListener("click", compararCartas));
 cartas.forEach(card => card.addEventListener("click", adicionarContador));
