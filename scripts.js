@@ -1,7 +1,15 @@
-// Função para início do jogo //
+// Variáveis globais //
+let quantidade;
+let faces;
+let acertouPar = 0;
+let jogadas = 0;
+let card = document.getElementsByClassName("carta");
+let cartas = [...card];
+let cartasAbertas = [];
 
+// Função para início do jogo //
 function selecionarQuantidade() {
-    let quantidade = Number(prompt("Com quantas cartas você quer jogar? Escolha um valor entre 4 e 14"));
+    quantidade = Number(prompt("Com quantas cartas você quer jogar? Escolha um valor entre 4 e 14"));
     let campo = document.querySelector(".cartas");
     let cartasJogaveis = [];
     let carta = 0;
@@ -9,24 +17,20 @@ function selecionarQuantidade() {
     let i = 0;
 
     // Laço para garantir que o usuário irá selecionar um valor válido //
-
     while (quantidade < 4 || quantidade > 14 || quantidade % 2 !== 0 || !quantidade) {
         quantidade = Number(prompt("Com quantas cartas você quer jogar?"));
     }
 
     // Laço para adicionar os pares na array //
-
     while (cartasJogaveis.length !== quantidade) {
         cartasJogaveis.push(carta, carta);
         carta++;
     }
 
     // Embaralhar números para adicionar no jogo //
-
     let cartasEmbaralhadas = cartasJogaveis.sort(comparador);
 
     // Adicionar cartas ao jogo aleatoriamente //
-
     while (i < cartasEmbaralhadas.length) {
         lista += `<div class="carta">
                             <div class="face verso">
@@ -41,28 +45,14 @@ function selecionarQuantidade() {
 
     campo.innerHTML = lista;
 }
-
 selecionarQuantidade();
 
 // Função para embaralhar as cartas //
-
 function comparador() { 
 	return Math.random() - 0.5; 
 }
 
-// Adicionar eventos para o clique na carta //
-
-let card = document.getElementsByClassName("carta");
-let cartas = [...card];
-let cartasAbertas = [];
-
-cartas.forEach(card => card.addEventListener("click", mostrarCarta))
-cartas.forEach(card => card.addEventListener("click", compararCartas))
-
 // Função para virar a carta //
-
-let faces;
-
 function mostrarCarta() {
     faces = this.getElementsByClassName("face");
     faces[0].classList.add("virado");
@@ -70,7 +60,6 @@ function mostrarCarta() {
 }
 
 // Função para comparar as duas cartas clicadas //
-
 function compararCartas() {
     cartasAbertas.push(this);
 
@@ -86,7 +75,6 @@ function compararCartas() {
 }
 
 // Função acionada caso as cartas comparadas sejam diferentes //
-
 function cartasDiferentes() {
     setTimeout(function() {
         cartasAbertas[0].childNodes[1].classList.remove("virado");
@@ -98,7 +86,27 @@ function cartasDiferentes() {
 }
 
 // Função acionada caso as cartas comparadas sejam iguais
-
 function cartasIguais() {
     cartasAbertas = [];
+    acertouPar++;
 }
+
+// Função para contabilizar jogadas, sendo que cada vez que o usuário vira uma carta equivale a uma jogada //
+function adicionarContador() {
+    jogadas ++;
+}
+
+// Função para comparar se o número de pares acertados é igual ao total de cartas no jogo dividido por 2 //
+function fimJogo() {
+    setTimeout(function() {
+        if (acertouPar === quantidade / 2) {
+            alert (`Você ganhou em ${jogadas} jogadas!`)
+        }
+    }, 500)
+}
+
+// Adicionar eventos para o clique na carta //
+cartas.forEach(card => card.addEventListener("click", mostrarCarta));
+cartas.forEach(card => card.addEventListener("click", compararCartas));
+cartas.forEach(card => card.addEventListener("click", adicionarContador));
+cartas.forEach(card => card.addEventListener("click", fimJogo));
