@@ -63,7 +63,7 @@ function compararCartas() {
     let comprimento = cartasAbertas.length;
 
     if (comprimento === 2) {
-        if (cartasAbertas[0].lastElementChild.firstElementChild.outerHTML !== cartasAbertas[1].lastElementChild.firstElementChild.outerHTML) { // Comparar os src das cartas para verificar se são pares //
+        if (cartasAbertas[0].lastElementChild.firstElementChild.outerHTML !== cartasAbertas[1].lastElementChild.firstElementChild.outerHTML) { // Comparar os src das cartas para verificar se são pares. (div carta.face frente.img.src) //
             cartasDiferentes();
         } else {
             cartasIguais();
@@ -74,10 +74,10 @@ function compararCartas() {
 // Função acionada caso as cartas comparadas sejam diferentes //
 function cartasDiferentes() {
     setTimeout(function() {
-        cartasAbertas[0].childNodes[1].classList.remove("virado");
-        cartasAbertas[0].childNodes[3].classList.remove("virado");
-        cartasAbertas[1].childNodes[1].classList.remove("virado");
-        cartasAbertas[1].childNodes[3].classList.remove("virado");
+        cartasAbertas[0].childNodes[1].classList.remove("virado"); //div.face.verso.virado
+        cartasAbertas[0].childNodes[3].classList.remove("virado"); //div.face.frente.virado
+        cartasAbertas[1].childNodes[1].classList.remove("virado"); //div.face.verso.virado
+        cartasAbertas[1].childNodes[3].classList.remove("virado"); //div.face.frente.virado
         cartasAbertas = [];
     }, 1000);
 }
@@ -91,6 +91,7 @@ function cartasIguais() {
 // Função para contabilizar jogadas, sendo que cada vez que o usuário vira uma carta equivale a uma jogada //
 function adicionarContador() {
     jogadas ++;
+    console.log(jogadas)
 }
 
 // Função para comparar se o número de pares acertados é igual ao total de cartas no jogo dividido por 2 //
@@ -111,3 +112,4 @@ cartas.forEach(card => card.addEventListener("click", mostrarCarta));
 cartas.forEach(card => card.addEventListener("click", compararCartas));
 cartas.forEach(card => card.addEventListener("click", adicionarContador));
 cartas.forEach(card => card.addEventListener("click", fimJogo));
+
